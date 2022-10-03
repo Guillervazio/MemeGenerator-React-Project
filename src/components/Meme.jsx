@@ -20,19 +20,33 @@ function Meme(){
         );
 
     }
-
+    function handleChange(event){
+        const {name,value, type, checked} = event.target;
+        console.log(meme)
+        setMeme(prevMeme =>{
+            return {
+                ...prevMeme,
+                [name] : type==="checkbox" ? checked : value
+            }
+        })
+    }
     return(
         <main>
             <div className="form">             
                 <input 
                     className="form--input"  
                     type="text"
-                    name="title1" 
+                    name="topText" 
+                    value={meme.topText}
+                    onChange={handleChange}
                 /> 
                 <input 
                     className="form--input" 
                     type="text" 
-                    name="title2" 
+                    name="bottomText" 
+                    value={meme.bottomText}
+                    onChange={handleChange}
+
                 />
                 <button 
                     className="form--button" 
@@ -41,8 +55,10 @@ function Meme(){
                     >Get a new meme image,
                 </button>       
             </div>
-            <div className="generated--img">
-                <img src={meme.randomImage} />
+            <div className="meme">
+                <img className="meme--image"  src={meme.randomImage} />
+                <h2 className="meme--text top">{meme.topText}</h2>
+                <h2 className="meme--text bottom">{meme.bottomText}</h2>
             </div>
         </main>
     );
